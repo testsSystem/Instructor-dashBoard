@@ -36,7 +36,7 @@ function TestData(props) {
                 label="Title"
                 variant="outlined"
                 fullWidth
-                name="title"
+                // name="title"
                 onChange={(e) => {
                   handleInput({ title: e.target.value });
                 }}
@@ -54,7 +54,6 @@ function TestData(props) {
                 onChange={(e) => {
                   handleInput({ start_at: e.target.value });
                 }}
-                name="start_at"
                 value={props.testData.start_at}
               />
             </Grid>

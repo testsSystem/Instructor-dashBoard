@@ -14,7 +14,9 @@ const AddTest = () => {
   return (
     <DashboardLayout>
       <TestData testData={testData} setTestData={setTestData} />
+      {console.log(testData)}
       <Questions questions={questions} setQuestions={setQuestions} />
+      {/* {console.log(questions, "jjjjjjjjj")} */}
     </DashboardLayout>
   );
 };

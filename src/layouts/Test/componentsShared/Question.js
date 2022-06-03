@@ -29,6 +29,14 @@ const Question = (props) => {
       answers: newAnswers,
     });
   };
+  const handleInput = (newValue) => {
+    console.log(props);
+    setQuestion({
+      ...props.question,
+      ...newValue,
+    });
+  };
+
   const deleteQuestion = () => {};
   return (
     <MDBox mb={3}>
@@ -46,7 +54,10 @@ const Question = (props) => {
             label="Question"
             variant="standard"
             fullWidth
-            value={question.title}
+            onChange={(e) => {
+              handleInput({ title: e.target.value });
+            }}
+            //value={props.question.title}
           />
           <MDBox>
             <MDBox p={4}>
