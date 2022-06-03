@@ -1,7 +1,7 @@
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import { useEffect, useState } from "react";
 import Questions from "./componentsShared/Questions";
-import TestData from "./componentsShared/TestData";
+import TestData from "./componentsShared/Test";
 
 const EditTest = () => {
   const [testData, setTestData] = useState({

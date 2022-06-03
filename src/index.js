@@ -16,6 +16,8 @@ Coded by www.creative-tim.com
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/store";
 import App from "App";
 
 // Material Dashboard 2 React Context Provider
@@ -23,9 +25,11 @@ import { MaterialUIControllerProvider } from "context";
 
 ReactDOM.render(
   <BrowserRouter>
-    <MaterialUIControllerProvider>
-      <App />
-    </MaterialUIControllerProvider>
+    <Provider store={store}>
+      <MaterialUIControllerProvider>
+        <App />
+      </MaterialUIControllerProvider>
+    </Provider>
   </BrowserRouter>,
   document.getElementById("root")
 );

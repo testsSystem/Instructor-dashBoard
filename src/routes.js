@@ -40,14 +40,13 @@ import Dashboard from "layouts/dashboard";
 // import Tables from "layouts/tables";
 import Billing from "layouts/billing";
 import RTL from "layouts/rtl";
-import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 // @mui icons
 import Icon from "@mui/material/Icon";
-import TestData from "layouts/Test/componentsShared/TestData";
-import AddTest from "layouts/Test/AddTest";
+// import TestData from "layouts/Test/componentsShared/TestData";
+import Test from "./layouts/Test/componentsShared/Test";
 
 const routes = [
   {
@@ -72,7 +71,7 @@ const routes = [
     key: "test",
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/tests/add",
-    component: <AddTest />,
+    component: <Test />,
   },
   // {
   //   type: "collapse",

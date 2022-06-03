@@ -1,223 +1,136 @@
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import MDBox from "components/MDBox";
-import MDTypography from "components/MDTypography";
-import MDButton from "components/MDButton";
-import DataTable from "examples/Tables/DataTable";
-import Footer from "examples/Footer";
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import MDInput from "components/MDInput";
-import TextField from "@mui/material/TextField";
-import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
-import Questions from "./Questions";
+import React from "react";
+import { Field, FieldArray, reduxForm } from "redux-form";
+import validate from "./validate";
+import { useSelector, useDispatch } from "react-redux";
+import { postTestAction } from "store/actions/tests";
+// import TextField from "@material-ui/core/TextField";
 
-import FormControl, { useFormControl } from "@mui/material/FormControl";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import FormHelperText from "@mui/material/FormHelperText";
-import { now } from "moment";
+const renderField = ({ input, label, type, meta: { touched, error } }) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label} required />
+      {touched && error && <span>{error}</span>}
+    </div>
+  </div>
+);
 
-// import { Category } from "@mui/icons-material";
+const renderAnswers = ({ fields, meta: { error } }) => (
+  <ul>
+    <li>
+      <button
+        type="button"
+        onClick={() => fields.push({ answer: "", correct: false })}
+      >
+        Add Answer
+      </button>
+    </li>
+    {fields.map((answer, index) => (
+      <li key={index}>
+        <button
+          type="button"
+          title="Remove Answer"
+          onClick={() => fields.remove(index)}
+        />
+        <Field
+          name={`${answer}.answer`}
+          type="text"
+          component={renderField}
+          label={`Answer #${index + 1}`}
+        />
+        <Field
+          name={`${answer}.correct`}
+          type="checkbox"
+          component={renderField}
+          label={`is correct option?`}
+        />
+      </li>
+    ))}
+    {error && <li className="error">{error}</li>}
+  </ul>
+);
 
-function TestData() {
-  const [test, setTest] = useState({
-    title: "",
-    start_at: "",
-    end_at: "",
-    description: "",
-    questions: [
-      { question: "what", options: [{ answer: "me", correct_answer: "1" }] },
-    ],
-  });
+const renderQuestions = ({
+  fields,
+  meta: { touched, error, submitFailed },
+}) => (
+  <ul>
+    <li>
+      <button type="button" onClick={() => fields.push({})}>
+        Add Question
+      </button>
+      {(touched || submitFailed) && error && <span>{error}</span>}
+    </li>
+    {fields.map((question, index) => (
+      <li key={index}>
+        <button
+          type="button"
+          title="Remove Question"
+          onClick={() => fields.remove(index)}
+        />
+        <h4>Question #{index + 1}</h4>
+        <Field
+          name={`${question}.name`}
+          type="text"
+          component={renderField}
+          label="question"
+        />
+        <FieldArray name={`${question}.answers`} component={renderAnswers} />
+      </li>
+    ))}
+  </ul>
+);
 
-  const question = test.questions[0].question;
-  const { answer } = test.questions[0].options[0].answer;
-  const { correct_answer } = test.questions[0].options[0].correct_answer;
-  //   question = "Mousa";
+const Test = (props) => {
+  const { pristine, reset, submitting } = props;
+  const dispatch = useDispatch();
 
-  console.log(question);
-  console.log(answer);
-  console.log(correct_answer);
-  console.log(test);
+  const formData = useSelector((state) => state?.form?.fieldArrays?.values);
 
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    //console.log({ name, value });
-    test[name] = value;
-    console.log(test);
-    // if (name === "question") {
-    //   test.questions[0][name] = value;
-    //   console.log(test);
-    // }
+  let handleSubmit = () => {
+    dispatch(postTestAction(formData));
   };
-  const defaultDate = { current: new Date() };
-  console.log(defaultDate.current);
+
   return (
-    <>
-      <DashboardLayout>
-        <MDBox pt={6} pb={3}>
-          <Card>
-            <MDBox
-              variant="gradient"
-              bgColor="info"
-              borderRadius="lg"
-              coloredShadow="success"
-              mx={2}
-              mt={-3}
-              p={1}
-              //   mb={1}
-              textAlign="center"
-            >
-              <MDTypography
-                variant="h4"
-                fontWeight="medium"
-                color="white"
-                // mt={0}
-              >
-                Test Data
-              </MDTypography>
-            </MDBox>
-            <MDBox p={2} mt={0}>
-              <Grid container spacing={5}>
-                <Grid item xs={12} md={4}>
-                  <TextField
-                    id="standard-textarea"
-                    label="Title"
-                    placeholder="Placeholder"
-                    multiline
-                    variant="standard"
-                    fullWidth
-                    onChange={handleInput}
-                    name="title"
-                  />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <TextField
-                    id="date"
-                    label="Date"
-                    type="datetime-local"
-                    InputLabelProps={{ shrink: true }}
-                    // value={date}
-                    onChange={handleInput}
-                    fullWidth
-                    name="start_at"
-                    required
-                    placeholder={defaultDate.current}
-
-                    // defaultValue={defaultDate.current}
-                  />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <TextField
-                    type="datetime-local"
-                    id="standard-textarea"
-                    label="Date"
-                    InputLabelProps={{ shrink: true }}
-                    // placeholder="Placeholder"
-                    // multiline
-                    // variant="standard"
-                    fullWidth
-                    required
-                    name="end_at"
-                    onChange={handleInput}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="Description"
-                    multiline
-                    rows={4}
-                    // defaultValue="Default Value"
-                    fullWidth
-                    onChange={handleInput}
-                    name="description"
-                  />
-                </Grid>
-              </Grid>
-            </MDBox>
-          </Card>
-        </MDBox>
-        {/* <Questions />? */}
-        <MDBox pt={2} pb={3}>
-          <Card>
-            <MDBox
-              variant="gradient"
-              bgColor="info"
-              borderRadius="lg"
-              coloredShadow="success"
-              mx={2}
-              mt={-3}
-              p={1}
-              //   mb={1}
-              textAlign="center"
-            >
-              <Grid container>
-                <Grid item xs={12} md={12}>
-                  <MDTypography
-                    variant="h4"
-                    fontWeight="medium"
-                    color="white"
-                    // mt={0}
-                  >
-                    Questions And Answers
-                  </MDTypography>
-                  <MDBox>
-                    <Grid container spacing={5}>
-                      <Grid item xs={4} md={4}>
-                        <TextField
-                          id="standard-textarea"
-                          label="question"
-                          placeholder="Placeholder"
-                          multiline
-                          variant="standard"
-                          fullWidth
-                          onChange={handleInput}
-                          name="question"
-                        />
-                      </Grid>
-                      <Grid item xs={4} md={4}>
-                        <TextField
-                          id="standard-textarea"
-                          label="answer"
-                          placeholder="Placeholder"
-                          multiline
-                          variant="standard"
-                          fullWidth
-                          onChange={handleInput}
-                          name="answer"
-                        />
-                      </Grid>
-                      <Grid item xs={4} md={4}>
-                        <TextField
-                          id="standard-textarea"
-                          label="correct_answer"
-                          placeholder="Placeholder"
-                          multiline
-                          variant="standard"
-                          fullWidth
-                          onChange={handleInput}
-                          name="correct_ansewr"
-                        />
-                      </Grid>
-                      <Grid item xs={12} md={12}>
-                        <MDButton variant="contained" color="success" fullWidth>
-                          Button
-                        </MDButton>
-                      </Grid>
-                    </Grid>
-                  </MDBox>
-                </Grid>
-              </Grid>
-            </MDBox>
-          </Card>
-        </MDBox>
-
-        <Footer />
-      </DashboardLayout>
-    </>
+    <form onSubmit={handleSubmit}>
+      <Field
+        name="testName"
+        type="text"
+        component={renderField}
+        label="Test Name"
+      />
+      <Field
+        name="startAt"
+        type="datetime-local"
+        component={renderField}
+        label="Start At"
+      />
+      <Field
+        name="endAt"
+        type="datetime-local"
+        component={renderField}
+        label="End At"
+      />
+      <Field
+        name="description"
+        type="text"
+        component={renderField}
+        label="Description"
+      />
+      <FieldArray name="questions" component={renderQuestions} />
+      <div>
+        <button type="submit" disabled={submitting}>
+          Submit
+        </button>
+        <button type="button" disabled={pristine || submitting} onClick={reset}>
+          Clear Values
+        </button>
+      </div>
+    </form>
   );
-}
+};
 
-export default TestData;
+export default reduxForm({
+  form: "fieldArrays", // a unique identifier for this form
+  validate,
+})(Test);
