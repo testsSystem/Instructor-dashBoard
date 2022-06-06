@@ -1,6 +1,7 @@
 import { CREATE_TEST, FETCH_TESTS } from "../constants";
 
 let initialState = {
+  tests: [],
   test: {},
 };
 

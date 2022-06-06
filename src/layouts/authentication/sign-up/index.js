@@ -2,14 +2,10 @@
 =========================================================
 * Material Dashboard 2 React - v2.1.0
 =========================================================
-
 * Product Page: https://www.creative-tim.com/product/material-dashboard-react
 * Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
 Coded by www.creative-tim.com
-
  =========================================================
-
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
@@ -34,7 +30,7 @@ import { useNavigate } from "react-router-dom";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
-function Cover() {
+function SignUp() {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const firstnameRef = useRef(null);
@@ -51,7 +47,7 @@ function Cover() {
       "input[type=password]"
     ).value;
 
-    fetch(`http://localhost:3000/api/v1/instructors/signup`, {
+    fetch(`http://localhost:3000/api/v1/instructor/signup`, {
       method: "POST",
       body: JSON.stringify({
         email,
@@ -186,4 +182,4 @@ function Cover() {
   );
 }
 
-export default Cover;
+export default SignUp;

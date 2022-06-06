@@ -1,5 +1,4 @@
 /** 
-
 =========================================================
 * Material Dashboard 2 React - v2.1.0
 =========================================================
@@ -31,13 +30,14 @@ import MDButton from "components/MDButton";
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
-function Basic() {
+function Signin() {
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
   const login = () => {
     const email = emailRef.current.querySelector("input[type=email]").value;
     const password = passwordRef.current.querySelector(
@@ -54,12 +54,14 @@ function Basic() {
       },
     })
       .then((response) => {
-        console.log(response, "llllllllllllllllllll");
+        // console.log(response, "llllllllllllllllllll");
         response.json().then((loggedIn) => {
           console.log(loggedIn);
+
           if (loggedIn.success) {
             console.log(loggedIn);
-            ctx.login(loggedIn.token);
+            ctx.login(loggedIn.result);
+            window.localStorage.setItem("token", loggedIn.result);
             navigate("/dashboard");
           }
         });
@@ -177,4 +179,4 @@ function Basic() {
     </BasicLayout>
   );
 }
-export default Basic;
+export default Signin;

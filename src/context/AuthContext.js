@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 
 export const AuthContext = createContext({
     isAuthenticated: false,
-    token: '',
+    token: window.localStorage.getItem("token") || null,
     login: (token) => {},
     logout: () => {}
 })

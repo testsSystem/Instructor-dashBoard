@@ -47,6 +47,10 @@ import SignUp from "layouts/authentication/sign-up";
 import Icon from "@mui/material/Icon";
 // import TestData from "layouts/Test/componentsShared/TestData";
 import Test from "./layouts/Test/componentsShared/Test";
+import CreateSession from "layouts/Test/CreateSession";
+import AddStudents from './layouts/Test/AddStudents'
+
+
 
 const routes = [
   {
@@ -73,6 +77,24 @@ const routes = [
     route: "/tests/add",
     component: <Test />,
   },
+
+  {
+    type: "collapse",
+    name: "Create Session",
+    key: "create session",
+    icon: <Icon fontSize="small">quiz</Icon>,
+    route: "/tests/createSession",
+    component: <CreateSession />,
+  },
+
+  {
+    type: "collapse",
+    name: "Add Students",
+    key: "create session",
+    icon: <Icon fontSize="small">quiz</Icon>,
+    route: "/tests/addStudetns",
+    component: <AddStudents />,
+  },
   // {
   //   type: "collapse",
   //   name: "Billing",
@@ -89,14 +111,14 @@ const routes = [
   //   route: "/rtl",
   //   component: <RTL />,
   // },
-  {
-    type: "collapse",
-    name: "Notifications",
-    key: "notifications",
-    icon: <Icon fontSize="small">notifications</Icon>,
-    route: "/notifications",
-    // component: <Notifications />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Notifications",
+  //   key: "notifications",
+  //   icon: <Icon fontSize="small">notifications</Icon>,
+  //   route: "/notifications",
+  //   // component: <Notifications />,
+  // },
   // {
   //   type: "collapse",
   //   name: "Profile",

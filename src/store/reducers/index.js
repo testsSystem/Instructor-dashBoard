@@ -4,7 +4,7 @@ import testReducer from "./tests";
 
 const reducers = combineReducers({
   form: reduxFormReducer, // mounted under "form"
-  tests: testReducer,
+  test: testReducer,
 });
 
 export default reducers;

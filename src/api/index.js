@@ -1,4 +1,4 @@
-const API_ROOT = "http://localhost:8000/api/v1";
+const API_ROOT = "http://localhost:3000/api/v1";
 
 const API_URLS = (extraData) => ({
   // the extraData can be used to send url params and request query data if needed to api.
@@ -12,6 +12,9 @@ const API_URLS = (extraData) => ({
     CREATE_TEST: API_ROOT + "/tests/",
     CREATE_QUESTION: API_ROOT + "/tests/questions/",
     CREATE_ANSWERS: API_ROOT + "/tests/options/",
+  },
+  INSTRUCTORS: {
+    GET_STUDENTS: API_ROOT + "/instructors/getStudents",
   },
 });
 

@@ -2,14 +2,14 @@ import React from "react";
 import { Field, FieldArray, reduxForm } from "redux-form";
 import validate from "./validate";
 import { useSelector, useDispatch } from "react-redux";
-import { postTestAction } from "store/actions/tests";
+import { postTestAction } from "../../../store/actions/tests";
 // import TextField from "@material-ui/core/TextField";
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
-      <input {...input} type={type} placeholder={label} required />
+      <input {...input} type={type} placeholder={label} />
       {touched && error && <span>{error}</span>}
     </div>
   </div>
@@ -87,8 +87,14 @@ const Test = (props) => {
 
   const formData = useSelector((state) => state?.form?.fieldArrays?.values);
 
-  let handleSubmit = () => {
-    dispatch(postTestAction(formData));
+  let handleSubmit = (e) => {
+    e.preventDefault();
+    try {
+      console.log(formData);
+      dispatch(postTestAction(formData));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
