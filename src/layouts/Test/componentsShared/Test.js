@@ -60,50 +60,58 @@ const renderCheckbox = ({ input, label }) => (
           onChange={input.onChange}
         />
       }
-      label={label}
     />
   </div>
 );
 
 const renderAnswers = ({ fields, meta: { error } }) => (
   <Grid container>
-    <MDButton
-      variant="text"
-      type="button"
-      color="info"
-      title="Remove Question"
-      onClick={() => fields.push({ answer: "", correct: false })}
-    >
-      <Icon fontSize="small"> add </Icon> Add Answer
-    </MDButton>
-
+    <Grid item xs={12}>
+      <MDButton
+        variant="text"
+        type="button"
+        color="info"
+        title="Remove Question"
+        onClick={() => fields.push({ answer: "", correct: false })}
+      >
+        <Icon fontSize="small"> add </Icon> Add Answer
+      </MDButton>
+    </Grid>
     {fields.map((answer, index) => (
-      <Grid key={index}>
-        <MDButton
-          variant="text"
-          type="button"
-          color="error"
-          title="Remove Answer"
-          onClick={() => fields.remove(index)}
-        >
-          <Icon fontSize="small"> delete </Icon> Delete an Answer
-        </MDButton>
-        <Field
-          name={`${answer}.answer`}
-          type="text"
-          component={renderTextField}
-          label={`Answer #${index + 1}`}
-        />
-        <Field
-          name={`${answer}.correct`}
-          type="checkbox"
-          component={renderCheckbox}
-          // label={`is correct option?`}
-        />
+      <Grid item xs={12} key={index}>
+        <Grid container justifyContent="center" my={1} p={2}>
+          <Grid item xs={10} >
+            <Field
+              name={`${answer}.answer`}
+              type="text"
+              component={renderTextField}
+              label={`Answer #${index + 1}`}
+            />
+          </Grid>
+          <Grid item xs={1} className="44444" >
+            <Field
+              name={`${answer}.correct`}
+              type="checkbox"
+              component={renderCheckbox}
+            // label={`is correct option?`}
+            />
+          </Grid>
+          <Grid item xs={1} >
+            <MDButton
+              variant="text"
+              type="button"
+              color="error"
+              title="Remove Answer"
+              onClick={() => fields.remove(index)}
+            >
+              <Icon fontSize="small"> delete </Icon>
+            </MDButton>
+          </Grid>
+        </Grid>
       </Grid>
     ))}
     {error && <li className="error">{error}</li>}
-  </Grid>
+  </Grid >
 );
 
 const renderQuestions = ({
@@ -112,74 +120,68 @@ const renderQuestions = ({
 }) => {
   return (
     <>
-      <MDBox pt={2} pb={3}>
-        <Card>
-          <MDBox
-            variant="gradient"
-            bgColor="info"
-            borderRadius="lg"
-            coloredShadow="success"
-            mx={2}
-            mt={-3}
-            p={1}
-            textAlign="center"
-          >
-            <Grid container>
-              <Grid item xs={12} md={12}>
-                <MDTypography variant="h5" fontWeight="medium" color="white">
-                  Questions
-                </MDTypography>
-              </Grid>
-            </Grid>
-          </MDBox>
-        </Card>
+      {/* <MDBox pt={3}>
+        <Grid container direction="row" justifyContent="center" mb={2}>
+          <MDButton variant="text" color="info" onClick={() => fields.push({})}>
+            <Icon fontSize="small"> add </Icon> Add New Question
+          </MDButton>
+        </Grid>
+      </MDBox> */}
 
+      <MDBox className="1111111" p={2} >
+        {/* <MDBox > */}
+        <Grid container>
+          <Grid item xs={12} md={12}>
+            {(touched || submitFailed) && error && <span>{error}</span>}
+          </Grid>
+
+          {fields.map((question, index) => (
+            ///////////////////////////
+            <MDBox className="1111111" sx={{ width: '100%' }} p={2} >
+              <Card className="222222222">
+                <Grid item xs={12} key={index} >
+                  <Grid container justifyContent="center" my={2} p={2} >
+                    <Grid item xs={11} md={10}>
+                      <Field
+                        name={`${question}.name`}
+                        type="text"
+                        component={renderTextField}
+                        label={`Question #${index + 1}`}
+                        sx={{ width: '100%' }}
+                      />
+                    </Grid>
+                    <Grid item xs={1} md={1}>
+                      <MDButton
+                        variant="text"
+                        type="button"
+                        color="error"
+                        title="Remove Question"
+                        onClick={() => fields.remove(index)}
+                      >
+                        <Icon fontSize="small"> delete </Icon>
+                      </MDButton>
+                    </Grid>
+
+                    <FieldArray
+                      name={`${question}.answers`}
+                      component={renderAnswers}
+                    />
+                  </Grid>
+                </Grid>
+              </Card>
+            </MDBox>
+          ))}
+
+        </Grid>
+      </MDBox>
+
+      <MDBox pt={3}>
         <Grid container direction="row" justifyContent="center" mb={2}>
           <MDButton variant="text" color="info" onClick={() => fields.push({})}>
             <Icon fontSize="small"> add </Icon> Add New Question
           </MDButton>
         </Grid>
       </MDBox>
-      <Grid container>
-        <Grid>
-          {(touched || submitFailed) && error && <span>{error}</span>}
-        </Grid>
-
-        {fields.map((question, index) => (
-          ///////////////////////////
-          <div key={index}>
-            <Grid container justifyContent="space-between" my={2}>
-              <Grid item xs={4} md={4}>
-                <h4>{index + 1}</h4>
-              </Grid>
-              <Grid item xs={4} md={4}>
-                <Field
-                  name={`${question}.name`}
-                  type="text"
-                  component={renderTextField}
-                  label="question"
-                />
-              </Grid>
-              <Grid item xs={4} md={4}>
-                <MDButton
-                  variant="text"
-                  type="button"
-                  color="error"
-                  title="Remove Question"
-                  onClick={() => fields.remove(index)}
-                >
-                  <Icon fontSize="small"> delete </Icon> Delete a Question
-                </MDButton>
-              </Grid>
-
-              <FieldArray
-                name={`${question}.answers`}
-                component={renderAnswers}
-              />
-            </Grid>
-          </div>
-        ))}
-      </Grid>
     </>
   );
 };
@@ -204,14 +206,6 @@ const Test = (props) => {
   return (
     <DashboardLayout>
       <form onSubmit={handleSubmit}>
-        {/* <div>
-          <Field
-            name="testName"
-            type="text"
-            component={renderTextField}
-            label="Test Name"
-          />
-        </div> */}
         <MDBox pt={6} pb={3}>
           <Card>
             <MDBox
@@ -279,30 +273,48 @@ const Test = (props) => {
 
         <MDBox pt={6} pb={3}>
           <Card>
-            <FieldArray name="questions" component={renderQuestions} />
-            <div>
-              <MDButton type="submit" disabled={submitting}>
-                Submit
-              </MDButton>
-              {/* <button type="submit" disabled={submitting}>
-                Submit
-              </button> */}
+            <MDBox
+              variant="gradient"
+              bgColor="info"
+              borderRadius="lg"
+              coloredShadow="success"
+              mx={2}
+              mt={-3}
+              p={1}
+              textAlign="center"
+            >
+              <MDTypography variant="h5" fontWeight="medium" color="white">
+                Questions
+              </MDTypography>
+            </MDBox>
 
-              <MDButton
-                type="button"
-                disabled={pristine || submitting}
-                onClick={reset}
-              >
-                Clear Values
-              </MDButton>
-              {/* <button
-                type="button"
-                disabled={pristine || submitting}
-                onClick={reset}
-              >
-                Clear Values
-              </button> */}
-            </div>
+            <MDBox>
+              <Grid container spacing={5}>
+                <Grid item xs={12}>
+                  <FieldArray name="questions" component={renderQuestions} />
+                </Grid>
+                <Grid item xs={12}>
+                  <MDButton type="submit" disabled={submitting}>
+                    Submit
+                  </MDButton>
+
+                  <MDButton
+                    type="button"
+                    disabled={pristine || submitting}
+                    onClick={reset}
+                  >
+                    Clear Values
+                  </MDButton>
+                  {/* <button
+                      type="button"
+                      disabled={pristine || submitting}
+                      onClick={reset}
+                    >
+                      Clear Values
+                    </button> */}
+                </Grid>
+              </Grid>
+            </MDBox>
           </Card>
         </MDBox>
       </form>
