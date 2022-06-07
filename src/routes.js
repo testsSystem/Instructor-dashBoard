@@ -81,7 +81,7 @@ const routes = [
   {
     type: "collapse",
     name: "Create Session",
-    key: "create session",
+    key: "create-session",
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/tests/createSession",
     component: <CreateSession />,
@@ -90,7 +90,7 @@ const routes = [
   {
     type: "collapse",
     name: "Add Students",
-    key: "create session",
+    key: "add-students",
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/tests/addStudetns",
     component: <AddStudents />,
