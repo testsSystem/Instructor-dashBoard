@@ -48,7 +48,7 @@ export const postTestAction = (testData) => async (dispatch) => {
             method: "POST",
           };
           // call the requestApi and pass in the answersInfo as an argument
-          const answersResponse = await requestApi(answersInfo);
+          await requestApi(answersInfo);
         });
       });
     })

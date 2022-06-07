@@ -17,37 +17,47 @@ import { requestApi } from "../../helpers";
 import API_URLS from "../../api";
 
 const columns = [
-  { Header: "FirstName", accessor: "FirstName", width: "50%", align: "center" },
+  { Header: "Name", accessor: "Name", width: "50%", align: "center" },
   //   { Header: "category", accessor: "category", align: "left" },
   //   { Header: "location", accessor: "location", align: "center" },
-  { Header: "LastName", accessor: "LastName", width: "50%", align: "center" },
+  { Header: "Add", accessor: "Add", width: "50%", align: "center" },
 ];
 function AddStudents() {
   const ctx = useContext(AuthContext);
   const [rows, setRows] = useState([]);
   const [students, setStudents] = useState([]);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      let data = {
-        url: API_URLS().INSTRUCTORS.GET_STUDENTS,
-      };
-      let res = await requestApi(data);
-      console.log(res, "dasdasdasdasd");
-      setStudents(res.data.result);
+  const fetchUsers = async () => {
+    let data = {
+      url: API_URLS().INSTRUCTORS.GET_STUDENTS,
     };
-    //     console.log(res.data.result, "jjjjjjjjjjjjjjj");
-    fetchUsers();
+    let res = await requestApi(data);
+    setStudents(res.data.result);
+  };
 
-    const allStudents = students.map((user) => {
-      console.log(user);
+  useEffect(() => {
+    console.log("first");
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
+    console.log("sec");
+    const allStudents = students?.map((user, i) => {
       return {
-        FirstName: <>{user.first_name}</>,
-        LastName: <>{user.last_name} </>,
+        Name: (
+          <div key={i + 1}>
+            <div>{user?.first_name + " " + user?.last_name}</div>
+            Add:
+            <div>
+              <MDButton>Add</MDButton>
+            </div>
+          </div>
+        ),
       };
     });
+
     setRows(allStudents);
-  }, []);
+  }, [students]);
 
   //   const titleShow = () => {
   //     axios
