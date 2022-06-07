@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "context/AuthContext";
 import axios from "axios";
+import AddStudents from "./AddStudents";
 
 const columns = [
   { Header: "title", accessor: "title", width: "50%", align: "center" },
@@ -24,16 +25,15 @@ function CreateSession() {
   const ctx = useContext(AuthContext);
   const [rows, setRows] = useState([]);
 
-
   const addStudents = () => {
-      
-  }
+    return <AddStudents user_id="Myname " test_id="" />;
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/v1/tests/getTestsByInstructor`, {
-        method:'get',
+      method: "get",
       headers: {
-        "Authorization": "Bearer " + ctx.token,
+        Authorization: "Bearer " + ctx.token,
       },
     }).then((response) => {
       console.log(response);
@@ -44,10 +44,10 @@ function CreateSession() {
 
             add: (
               <>
-              <Link to={'/tests/addStudetns'}>
-                <MDButton variant="text" color="info" onClick={addStudents}>
-                  <Icon>add</Icon>&nbsp;Add Students
-                </MDButton>
+                <Link to={"/tests/addStudetns"}>
+                  <MDButton variant="text" color="info" onClick={addStudents}>
+                    <Icon>add</Icon>&nbsp;Add Students
+                  </MDButton>
                 </Link>
               </>
             ),
@@ -104,10 +104,13 @@ function CreateSession() {
                   justifyContent="space-between"
                   alignItems="center"
                 >
-                  <MDTypography variant="h6" color="white" justifyContent='center'>
+                  <MDTypography
+                    variant="h6"
+                    color="white"
+                    justifyContent="center"
+                  >
                     Session Info
                   </MDTypography>
-                 
                 </Grid>
               </MDBox>
               <MDBox pt={3}>

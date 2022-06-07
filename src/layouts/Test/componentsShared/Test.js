@@ -80,7 +80,7 @@ const renderAnswers = ({ fields, meta: { error } }) => (
     {fields.map((answer, index) => (
       <Grid item xs={12} key={index}>
         <Grid container justifyContent="center" my={1} p={2}>
-          <Grid item xs={10} >
+          <Grid item xs={10}>
             <Field
               name={`${answer}.answer`}
               type="text"
@@ -88,15 +88,15 @@ const renderAnswers = ({ fields, meta: { error } }) => (
               label={`Answer #${index + 1}`}
             />
           </Grid>
-          <Grid item xs={1} className="44444" >
+          <Grid item xs={1} className="44444">
             <Field
               name={`${answer}.correct`}
               type="checkbox"
               component={renderCheckbox}
-            // label={`is correct option?`}
+              // label={`is correct option?`}
             />
           </Grid>
-          <Grid item xs={1} >
+          <Grid item xs={1}>
             <MDButton
               variant="text"
               type="button"
@@ -111,7 +111,7 @@ const renderAnswers = ({ fields, meta: { error } }) => (
       </Grid>
     ))}
     {error && <li className="error">{error}</li>}
-  </Grid >
+  </Grid>
 );
 
 const renderQuestions = ({
@@ -128,7 +128,7 @@ const renderQuestions = ({
         </Grid>
       </MDBox> */}
 
-      <MDBox className="1111111" p={2} >
+      <MDBox className="1111111" p={2}>
         {/* <MDBox > */}
         <Grid container>
           <Grid item xs={12} md={12}>
@@ -137,17 +137,17 @@ const renderQuestions = ({
 
           {fields.map((question, index) => (
             ///////////////////////////
-            <MDBox className="1111111" sx={{ width: '100%' }} p={2} >
+            <MDBox className="1111111" sx={{ width: "100%" }} p={2}>
               <Card className="222222222">
-                <Grid item xs={12} key={index} >
-                  <Grid container justifyContent="center" my={2} p={2} >
+                <Grid item xs={12} key={index}>
+                  <Grid container justifyContent="center" my={2} p={2}>
                     <Grid item xs={11} md={10}>
                       <Field
                         name={`${question}.name`}
                         type="text"
                         component={renderTextField}
                         label={`Question #${index + 1}`}
-                        sx={{ width: '100%' }}
+                        sx={{ width: "100%" }}
                       />
                     </Grid>
                     <Grid item xs={1} md={1}>
@@ -171,7 +171,6 @@ const renderQuestions = ({
               </Card>
             </MDBox>
           ))}
-
         </Grid>
       </MDBox>
 
@@ -191,7 +190,7 @@ const Test = (props) => {
   // const {  } = props;
   const dispatch = useDispatch();
 
-  const formData = useSelector((state) => state?.form?.fieldArrays?.values);
+  const formData = useSelector((state) => state?.form?.Test?.values);
 
   let handleSubmit = (e) => {
     e.preventDefault();

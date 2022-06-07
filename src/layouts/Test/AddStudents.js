@@ -22,10 +22,12 @@ const columns = [
   //   { Header: "location", accessor: "location", align: "center" },
   { Header: "Add", accessor: "Add", width: "50%", align: "center" },
 ];
-function AddStudents() {
+function AddStudents(props) {
   const ctx = useContext(AuthContext);
   const [rows, setRows] = useState([]);
   const [students, setStudents] = useState([]);
+  const [session, setSession] = useState([]);
+  console.log(props.user_id, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
 
   const fetchUsers = async () => {
     let data = {
@@ -35,9 +37,42 @@ function AddStudents() {
     setStudents(res.data.result);
   };
 
+  ////////////////////
+  // let sessionInfo = {
+  //   url: API_URLS().SESSIONS.CREATE_SESSION,
+  //   body: {
+  //     user_id,
+  //     test_id,
+  //   },
+  //   method: "POST",
+  // };
+  // await requestApi(sessionInfo);
+  // .then((res) => {
+  //   // initialize variable test id from response
+  //   let testId = res.data.result.id;
+
+  /////////////////////
+
+  const createSession = async (testData) => {
+    let { user_id, test_id } = testData;
+    let data = {
+      url: API_URLS().SESSIONS.CREATE_SESSION,
+      method: "POST",
+      body: {
+        user_id: user_id,
+        test_id: test_id,
+      },
+    };
+
+    let res = await requestApi(data);
+    setSession(res.data.result);
+    console.log(session, "jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
+  };
+
   useEffect(() => {
     console.log("first");
     fetchUsers();
+    createSession();
   }, []);
 
   useEffect(() => {
@@ -45,13 +80,18 @@ function AddStudents() {
     const allStudents = students?.map((user, i) => {
       return {
         Name: (
-          <div key={i + 1}>
-            <div>{user?.first_name + " " + user?.last_name}</div>
-            Add:
-            <div>
-              <MDButton>Add</MDButton>
-            </div>
-          </div>
+          <>
+            {user.first_name}
+            {user.last_name}
+          </>
+        ),
+
+        Add: (
+          <>
+            <MDButton variant="text" color="info" onClick={() => {}}>
+              <Icon>add</Icon>&nbsp;Add to Test
+            </MDButton>
+          </>
         ),
       };
     });

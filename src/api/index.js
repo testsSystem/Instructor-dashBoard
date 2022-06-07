@@ -16,6 +16,9 @@ const API_URLS = (extraData) => ({
   INSTRUCTORS: {
     GET_STUDENTS: API_ROOT + "/instructors/getStudents",
   },
+  SESSIONS: {
+    CREATE_SESSION: API_ROOT + "//tests/session",
+  },
 });
 
 export default API_URLS;
