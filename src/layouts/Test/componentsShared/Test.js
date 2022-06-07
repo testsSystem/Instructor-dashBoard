@@ -9,30 +9,13 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import { useState } from "react";
 import TextField from "@mui/material/TextField";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Answers from "./Answers";
 import MDButton from "components/MDButton";
 import Icon from "@mui/material/Icon";
 
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} type={type} placeholder={label} />
-      {touched && error && <span>{error}</span>}
-    </div>
-  </div>
-);
 
 const renderTextField = ({
   label,
@@ -52,7 +35,7 @@ const renderTextField = ({
 );
 
 const renderCheckbox = ({ input, label }) => (
-  <div>
+  <Grid container justifyContent={'center'}>
     <FormControlLabel
       control={
         <Checkbox
@@ -61,11 +44,45 @@ const renderCheckbox = ({ input, label }) => (
         />
       }
     />
-  </div>
+  </Grid>
 );
 
 const renderAnswers = ({ fields, meta: { error } }) => (
   <Grid container>
+    
+    {fields.map((answer, index) => (
+      <Grid item xs={12} key={index}>
+        <Grid container justifyContent="center" mt={1}>
+          <Grid item xs={10} >
+            <Field
+              name={`${answer}.answer`}
+              type="text"
+              component={renderTextField}
+              label={`Answer #${index + 1}`}
+            />
+          </Grid>
+          <Grid container item xs={1} justifyContent='center' >
+            <Field
+              name={`${answer}.correct`}
+              type="checkbox"
+              component={renderCheckbox}
+            // label={`is correct option?`}
+            />
+          </Grid>
+          <Grid item xs={1} justifyContent='center' >
+            <MDButton
+              variant="text"
+              type="button"
+              color="error"
+              title="Remove Answer"
+              onClick={() => fields.remove(index)}
+            >
+              <Icon fontSize="large"> delete </Icon>
+            </MDButton>
+          </Grid>
+        </Grid>
+      </Grid>
+    ))}
     <Grid item xs={12}>
       <MDButton
         variant="text"
@@ -77,39 +94,6 @@ const renderAnswers = ({ fields, meta: { error } }) => (
         <Icon fontSize="small"> add </Icon> Add Answer
       </MDButton>
     </Grid>
-    {fields.map((answer, index) => (
-      <Grid item xs={12} key={index}>
-        <Grid container justifyContent="center" my={1} p={2}>
-          <Grid item xs={10} >
-            <Field
-              name={`${answer}.answer`}
-              type="text"
-              component={renderTextField}
-              label={`Answer #${index + 1}`}
-            />
-          </Grid>
-          <Grid item xs={1} className="44444" >
-            <Field
-              name={`${answer}.correct`}
-              type="checkbox"
-              component={renderCheckbox}
-            // label={`is correct option?`}
-            />
-          </Grid>
-          <Grid item xs={1} >
-            <MDButton
-              variant="text"
-              type="button"
-              color="error"
-              title="Remove Answer"
-              onClick={() => fields.remove(index)}
-            >
-              <Icon fontSize="small"> delete </Icon>
-            </MDButton>
-          </Grid>
-        </Grid>
-      </Grid>
-    ))}
     {error && <li className="error">{error}</li>}
   </Grid >
 );
@@ -120,15 +104,8 @@ const renderQuestions = ({
 }) => {
   return (
     <>
-      {/* <MDBox pt={3}>
-        <Grid container direction="row" justifyContent="center" mb={2}>
-          <MDButton variant="text" color="info" onClick={() => fields.push({})}>
-            <Icon fontSize="small"> add </Icon> Add New Question
-          </MDButton>
-        </Grid>
-      </MDBox> */}
 
-      <MDBox className="1111111" p={2} >
+      <MDBox p={2} >
         {/* <MDBox > */}
         <Grid container>
           <Grid item xs={12} md={12}>
@@ -136,12 +113,11 @@ const renderQuestions = ({
           </Grid>
 
           {fields.map((question, index) => (
-            ///////////////////////////
-            <MDBox className="1111111" sx={{ width: '100%' }} p={2} >
-              <Card className="222222222">
-                <Grid item xs={12} key={index} >
-                  <Grid container justifyContent="center" my={2} p={2} >
-                    <Grid item xs={11} md={10}>
+            <MDBox sx={{ width: '100%' }} p={2} key={index} >
+              <Card>
+                <Grid item xs={12} p={2}>
+                  <Grid container justifyContent="center" my={2}>
+                    <Grid item xs={11}>
                       <Field
                         name={`${question}.name`}
                         type="text"
@@ -150,7 +126,7 @@ const renderQuestions = ({
                         sx={{ width: '100%' }}
                       />
                     </Grid>
-                    <Grid item xs={1} md={1}>
+                    <Grid item xs={1}>
                       <MDButton
                         variant="text"
                         type="button"
