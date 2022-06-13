@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { toggleNotfOff } from "../redux/actions/notifications";
+import { toggleNotfOff } from "../store/actions/notifications";
 
 const SimpleSnackbar = () => {
   const dispatch = useDispatch();

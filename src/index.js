@@ -19,17 +19,22 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import App from "App";
-
-// Material Dashboard 2 React Context Provider
+import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { MaterialUIControllerProvider } from "context";
 
+const queryClient = new QueryClient();
+
+// Material Dashboard 2 React Context Provider
+
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <MaterialUIControllerProvider>
-        <App />
-      </MaterialUIControllerProvider>
-    </Provider>
-  </BrowserRouter>,
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <Provider store={store}>
+        <MaterialUIControllerProvider>
+          <App />
+        </MaterialUIControllerProvider>
+      </Provider>
+    </BrowserRouter>
+  </QueryClientProvider>,
   document.getElementById("root")
 );

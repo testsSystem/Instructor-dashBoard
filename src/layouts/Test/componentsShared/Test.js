@@ -10,13 +10,14 @@ import Card from "@mui/material/Card";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import TextField from "@mui/material/TextField";
-
+import { useState } from "react";
+import MDSnackbar from "components/MDSnackbar";
 import MDButton from "components/MDButton";
 import Icon from "@mui/material/Icon";
 
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-
+import SimpleSnackbar from "layouts/Notifications";
 const renderTextField = ({
   label,
   input,
@@ -93,39 +94,6 @@ const renderAnswers = ({ fields, meta: { error } }) => (
         <Icon fontSize="small"> add </Icon> Add Answer
       </MDButton>
     </Grid>
-    {fields.map((answer, index) => (
-      <Grid item xs={12} key={index}>
-        <Grid container justifyContent="center" my={1} p={2}>
-          <Grid item xs={10}>
-            <Field
-              name={`${answer}.answer`}
-              type="text"
-              component={renderTextField}
-              label={`Answer #${index + 1}`}
-            />
-          </Grid>
-          <Grid item xs={1} className="44444">
-            <Field
-              name={`${answer}.correct`}
-              type="checkbox"
-              component={renderCheckbox}
-              // label={`is correct option?`}
-            />
-          </Grid>
-          <Grid item xs={1}>
-            <MDButton
-              variant="text"
-              type="button"
-              color="error"
-              title="Remove Answer"
-              onClick={() => fields.remove(index)}
-            >
-              <Icon fontSize="small"> delete </Icon>
-            </MDButton>
-          </Grid>
-        </Grid>
-      </Grid>
-    ))}
     {error && <li className="error">{error}</li>}
   </Grid>
 );
@@ -193,7 +161,13 @@ const renderQuestions = ({
 };
 
 const Test = (props) => {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [serverResponse, setServerResponse] = useState("");
+  const [snackBarType, setSnackBarType] = useState("success");
   const { pristine, reset, submitting, classes } = props;
+
+  const closeSnackBar = () => setOpenSnackBar(false);
+
   // const {  } = props;
   const dispatch = useDispatch();
 
@@ -202,7 +176,7 @@ const Test = (props) => {
   let handleSubmit = (e) => {
     e.preventDefault();
     try {
-      console.log(formData);
+      // console.log(formData);
       dispatch(postTestAction(formData));
     } catch (e) {
       console.error(e);
@@ -324,6 +298,18 @@ const Test = (props) => {
           </Card>
         </MDBox>
       </form>
+      {/* <MDSnackbar
+        color={snackBarType}
+        icon={snackBarType == "success" ? "check" : "warning"}
+        title="Test Maker App"
+        content={serverResponse}
+        open={openSnackBar}
+        // onClose={closeSnackBar}
+        close={closeSnackBar}
+        dateTime=""
+        bgWhite
+      /> */}
+      <SimpleSnackbar />
     </DashboardLayout>
   );
 };

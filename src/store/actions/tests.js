@@ -20,6 +20,7 @@ export const postTestAction = (testData) => async (dispatch) => {
     .then((res) => {
       // initialize variable test id from response
       let testId = res.data.result.id;
+
       // map over questions
       questions.map(async (question) => {
         // initialize the questionsInfo object to be used in the api call

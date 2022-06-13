@@ -26,11 +26,18 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
+import MDSnackbar from "components/MDSnackbar";
 // Authentication layout components
 import BasicLayout from "layouts/authentication/components/BasicLayout";
 // Images
 import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 function Signin() {
+  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [serverResponse, setServerResponse] = useState("");
+  const [snackBarType, setSnackBarType] = useState("success");
+
+  const closeSnackBar = () => setOpenSnackBar(false);
+
   const ctx = useContext(AuthContext);
   const navigate = useNavigate();
   const [rememberMe, setRememberMe] = useState(false);
@@ -56,7 +63,15 @@ function Signin() {
       .then((response) => {
         // console.log(response, "llllllllllllllllllll");
         response.json().then((loggedIn) => {
-          console.log(loggedIn);
+          setServerResponse(loggedIn.message);
+          // setServerResponse(loggedIn.responds.join(" "));
+          // console.log(loggedIn, "jjjjjjjjjjjjjjjjjj");
+          if (loggedIn.success) {
+            setSnackBarType("success");
+          } else {
+            setSnackBarType("error");
+          }
+          setOpenSnackBar(true);
 
           if (loggedIn.success) {
             console.log(loggedIn);
@@ -176,6 +191,17 @@ function Signin() {
           </MDBox>
         </MDBox>
       </Card>
+      <MDSnackbar
+        color={snackBarType}
+        icon={snackBarType == "success" ? "check" : "warning"}
+        title="Test Maker App"
+        content={serverResponse}
+        open={openSnackBar}
+        // onClose={closeSnackBar}
+        close={closeSnackBar}
+        dateTime=""
+        bgWhite
+      />
     </BasicLayout>
   );
 }

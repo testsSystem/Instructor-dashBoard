@@ -48,9 +48,11 @@ import Icon from "@mui/material/Icon";
 // import TestData from "layouts/Test/componentsShared/TestData";
 import Test from "./layouts/Test/componentsShared/Test";
 import CreateSession from "layouts/Test/CreateSession";
-import AddStudents from './layouts/Test/AddStudents'
+import AddStudents from "./layouts/Test/AddStudents";
 
-
+import TestList from "layouts/Test/TestList";
+import StudentTest from "layouts/Test/componentsShared/StudentTest";
+import Expirement from "layouts/Test/expirements";
 
 const routes = [
   {
@@ -61,6 +63,15 @@ const routes = [
     route: "/dashboard",
     component: <Dashboard />,
   },
+
+  // {
+  //   type: "collapse",
+  //   name: "student test",
+  //   key: "student-test",
+  //   icon: <Icon fontSize="small">dashboard</Icon>,
+  //   route: "/studentTest",
+  //   component: <StudentTest />,
+  // },
   // {
   //   type: "collapse",
   //   name: "Test",
@@ -80,21 +91,38 @@ const routes = [
 
   {
     type: "collapse",
-    name: "Create Session",
-    key: "create-session",
+    name: "Profile",
+    key: "profile",
     icon: <Icon fontSize="small">quiz</Icon>,
-    route: "/tests/createSession",
-    component: <CreateSession />,
+    route: "/profile",
+    component: <Profile />,
   },
 
-  {
-    type: "collapse",
-    name: "Add Students",
-    key: "add-students",
-    icon: <Icon fontSize="small">quiz</Icon>,
-    route: "/tests/addStudetns",
-    component: <AddStudents />,
-  },
+  // {
+  //   type: "collapse",
+  //   name: "Test List",
+  //   key: "test-list",
+  //   icon: <Icon fontSize="small">quiz</Icon>,
+  //   route: "/tests/listTests",
+  //   component: <TestList />,
+  // },
+
+  // {
+  //   type: "collapse",
+  //   name: "Expirement",
+  //   key: "expirement",
+  //   icon: <Icon fontSize="small">quiz</Icon>,
+  //   route: "/tests/expirement",
+  //   component: <Expirement />,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Add Students",
+  //   key: "add-students",
+  //   icon: <Icon fontSize="small">quiz</Icon>,
+  //   route: "/tests/addStudetns",
+  //   component: <AddStudents />,
+  // },
   // {
   //   type: "collapse",
   //   name: "Billing",
