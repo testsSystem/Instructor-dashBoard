@@ -43,6 +43,7 @@ import RTL from "layouts/rtl";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+// import Notifications from "layouts/notifications";
 // @mui icons
 import Icon from "@mui/material/Icon";
 // import TestData from "layouts/Test/componentsShared/TestData";
@@ -53,6 +54,7 @@ import AddStudents from "./layouts/Test/AddStudents";
 import TestList from "layouts/Test/TestList";
 import StudentTest from "layouts/Test/componentsShared/StudentTest";
 import Expirement from "layouts/Test/expirements";
+import ResultTest from "layouts/Test/ResultTest";
 
 const routes = [
   {
@@ -91,12 +93,29 @@ const routes = [
 
   {
     type: "collapse",
-    name: "Profile",
-    key: "profile",
+    name: "TestList",
+    key: "testList",
     icon: <Icon fontSize="small">quiz</Icon>,
-    route: "/profile",
-    component: <Profile />,
+    route: "/tests/show",
+    component: <TestList />,
   },
+
+  {
+    type: "collapse",
+    name: "result test",
+    key: "resultTest",
+    icon: <Icon fontSize="small">quiz</Icon>,
+    route: "/tests/show/result/:id",
+    component: <ResultTest />,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "Profile",
+  //   key: "profile",
+  //   icon: <Icon fontSize="small">quiz</Icon>,
+  //   route: "/profile",
+  //   component: <Profile />,
+  // },
 
   // {
   //   type: "collapse",
@@ -171,6 +190,13 @@ const routes = [
     route: "/authentication/sign-up",
     component: <SignUp />,
   },
+  // {
+  //   type: "collapse",
+  //   name: "notifications",
+  //   key: "notifications",
+  //   icon: <Icon fontSize="small">assignment</Icon>,
+  //   component: <Notifications />,
+  // },
 ];
 
 export default routes;

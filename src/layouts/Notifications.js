@@ -25,6 +25,7 @@ const SimpleSnackbar = () => {
   useEffect(() => {
     openGlobal && setOpen(true);
   }, [openGlobal, variant, message]);
+  console.log("first");
 
   return (
     <div>

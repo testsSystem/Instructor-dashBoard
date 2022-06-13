@@ -309,7 +309,7 @@ const Test = (props) => {
         dateTime=""
         bgWhite
       /> */}
-      <SimpleSnackbar />
+      {/* <SimpleSnackbar /> */}
     </DashboardLayout>
   );
 };

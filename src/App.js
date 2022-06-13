@@ -45,6 +45,7 @@ import createCache from "@emotion/cache";
 
 // Material Dashboard 2 React routes
 import routes from "routes";
+import Notifications from "layouts/Notifications";
 
 // Material Dashboard 2 React contexts
 import {
@@ -181,6 +182,8 @@ export default function App() {
           </>
         )}
         {layout === "vr" && <Configurator />}
+        <Notifications />
+
         <Routes>
           {getRoutes(routes)}
           <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
@@ -209,6 +212,7 @@ export default function App() {
         </>
       )}
       {layout === "vr" && <Configurator />}
+      <Notifications />
       <Routes>
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/authentication/sign-in" />} />

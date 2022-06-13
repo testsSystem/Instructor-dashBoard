@@ -12,10 +12,15 @@ import API_URLS from "../../api";
 import MDButton from "components/MDButton";
 import Icon from "@mui/material/Icon";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const columns = [
-  { Header: "testName", accessor: "testName", width: "50%", align: "center" },
+  {
+    Header: "student_name",
+    accessor: "student_name",
+    width: "50%",
+    align: "center",
+  },
   //   { Header: "category", accessor: "category", align: "left" },
   //   { Header: "location", accessor: "location", align: "center" },
   {
@@ -25,17 +30,18 @@ const columns = [
     align: "center",
   },
 ];
-function TestList(props) {
+function ResultTest(props) {
   const [rows, setRows] = useState([]);
   const [test, setTest] = useState([]);
 
-  //
+  const { id } = useParams();
+  console.log(id, "idididiiddi");
 
-  const fetchTests = async () => {
+  const fetchResult = async () => {
     const token = window.localStorage.getItem("token") || null;
 
     const data = await axios({
-      url: `http://localhost:3000/api/v1/instructors/getTests`,
+      url: `http://localhost:3000/api/v1/tests/results/${id}`,
       headers: {
         "Content-Type": "application/json",
         Authorization: token ? `Bearer ${token}` : undefined,
@@ -48,45 +54,22 @@ function TestList(props) {
     return data;
   };
 
-  // const fetchResult = async (id) => {
-  //   const token = window.localStorage.getItem("token") || null;
-
-  //   const data = await axios({
-  //     url: `http://localhost:3000/api/v1/tests/results/${id}`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: token ? `Bearer ${token}` : undefined,
-  //     },
-  //     method: "GET",
-  //   });
-  //   setTest(data);
-  //   console.log(test, "tesstttttt");
-
-  //   return data;
-  // };
-
   useEffect(() => {
-    fetchTests();
+    fetchResult();
   }, []);
   useEffect(() => {
     setRows(
       test?.data?.result
         ? test?.data?.result?.map((st, i) => {
+            console.log(st.result);
             return {
-              testName: <div key={i}>{st?.title}</div>,
-              students_results: (
-                <Link to={`/tests/show/result/${st.id}`}>
-                  <MDButton
-                    variant="contained"
-                    color="success"
-                    onClick={() => {
-                      // fetchResult(st.id);
-                    }}
-                  >
-                    GET
-                  </MDButton>
-                </Link>
+              student_name: (
+                <div key={i}>
+                  {st?.User?.first_name}
+                  {st?.User?.last_name}
+                </div>
               ),
+              students_results: <div>{st?.result}</div>,
             };
           })
         : []
@@ -142,4 +125,4 @@ function TestList(props) {
     </DashboardLayout>
   );
 }
-export default TestList;
+export default ResultTest;
