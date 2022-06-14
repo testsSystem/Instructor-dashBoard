@@ -55,6 +55,7 @@ import TestList from "layouts/Test/TestList";
 import StudentTest from "layouts/Test/componentsShared/StudentTest";
 import Expirement from "layouts/Test/expirements";
 import ResultTest from "layouts/Test/ResultTest";
+import SignOut from "layouts/authentication/sign-out";
 
 const routes = [
   {
@@ -64,6 +65,7 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+    inSideNav: false,
   },
 
   // {
@@ -89,6 +91,7 @@ const routes = [
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/tests/add",
     component: <Test />,
+    inSideNav: true,
   },
 
   {
@@ -98,6 +101,7 @@ const routes = [
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/tests/show",
     component: <TestList />,
+    inSideNav: true,
   },
 
   {
@@ -107,6 +111,7 @@ const routes = [
     icon: <Icon fontSize="small">quiz</Icon>,
     route: "/tests/show/result/:id",
     component: <ResultTest />,
+    inSideNav: false,
   },
   // {
   //   type: "collapse",
@@ -181,6 +186,7 @@ const routes = [
     icon: <Icon fontSize="small">login</Icon>,
     route: "/authentication/sign-in",
     component: <SignIn />,
+    inSideNav: true,
   },
   {
     type: "collapse",
@@ -189,14 +195,17 @@ const routes = [
     icon: <Icon fontSize="small">assignment</Icon>,
     route: "/authentication/sign-up",
     component: <SignUp />,
+    inSideNav: true,
   },
-  // {
-  //   type: "collapse",
-  //   name: "notifications",
-  //   key: "notifications",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   component: <Notifications />,
-  // },
+  {
+    type: "collapse",
+    name: "Sign Out",
+    key: "sign-out",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/sign-out",
+    component: <SignOut />,
+    inSideNav: true,
+  },
 ];
 
 export default routes;

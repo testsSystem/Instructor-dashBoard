@@ -99,29 +99,6 @@ function AddStudents(props) {
     setRows(allStudents);
   }, [students]);
 
-  //   const titleShow = () => {
-  //     axios
-  //       .get("http://localhost:3000/api/v1/tests/getTestsByInstructor")
-  //       .then((response) => {
-  //         console.log(response, "jjjjjjjjjjjjjjjjjjjjjjj");
-  //         response.json().then((titles) => {
-  //           const allTitles = titles.result.map((title) => {
-  //             return {
-  //               title: <>{title.title}</>,
-
-  //               add: (
-  //                 <>
-  //                   <MDButton variant="text" color="error">
-  //                     <Icon>add</Icon>&nbsp;add
-  //                   </MDButton>
-  //                 </>
-  //               ),
-  //             };
-  //           });
-  //           setRows(allTitles);
-  //         });
-  //       });
-  //   };
   return (
     <DashboardLayout>
       <DashboardNavbar />

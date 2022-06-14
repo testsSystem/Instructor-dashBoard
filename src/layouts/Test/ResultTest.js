@@ -66,7 +66,7 @@ function ResultTest(props) {
               student_name: (
                 <div key={i}>
                   {st?.User?.first_name}
-                  {st?.User?.last_name}
+                  {"  "} {st?.User?.last_name}
                 </div>
               ),
               students_results: <div>{st?.result}</div>,

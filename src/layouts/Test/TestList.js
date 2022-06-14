@@ -7,10 +7,7 @@ import MDTypography from "components/MDTypography";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 import { useEffect, useState } from "react";
-import { requestApi } from "../../helpers";
-import API_URLS from "../../api";
 import MDButton from "components/MDButton";
-import Icon from "@mui/material/Icon";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -29,8 +26,6 @@ function TestList(props) {
   const [rows, setRows] = useState([]);
   const [test, setTest] = useState([]);
 
-  //
-
   const fetchTests = async () => {
     const token = window.localStorage.getItem("token") || null;
 
@@ -48,23 +43,6 @@ function TestList(props) {
     return data;
   };
 
-  // const fetchResult = async (id) => {
-  //   const token = window.localStorage.getItem("token") || null;
-
-  //   const data = await axios({
-  //     url: `http://localhost:3000/api/v1/tests/results/${id}`,
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: token ? `Bearer ${token}` : undefined,
-  //     },
-  //     method: "GET",
-  //   });
-  //   setTest(data);
-  //   console.log(test, "tesstttttt");
-
-  //   return data;
-  // };
-
   useEffect(() => {
     fetchTests();
   }, []);
@@ -76,13 +54,7 @@ function TestList(props) {
               testName: <div key={i}>{st?.title}</div>,
               students_results: (
                 <Link to={`/tests/show/result/${st.id}`}>
-                  <MDButton
-                    variant="contained"
-                    color="success"
-                    onClick={() => {
-                      // fetchResult(st.id);
-                    }}
-                  >
+                  <MDButton variant="contained" color="success">
                     GET
                   </MDButton>
                 </Link>

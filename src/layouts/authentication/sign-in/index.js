@@ -65,7 +65,7 @@ function Signin() {
         response.json().then((loggedIn) => {
           setServerResponse(loggedIn.message);
           // setServerResponse(loggedIn.responds.join(" "));
-          // console.log(loggedIn, "jjjjjjjjjjjjjjjjjj");
+          console.log(loggedIn, "jjjjjjjjjjjjjjjjjj");
           if (loggedIn.success) {
             setSnackBarType("success");
           } else {
