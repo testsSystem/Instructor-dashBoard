@@ -48,8 +48,7 @@ function SignUp() {
     const password = passwordRef.current.querySelector(
       "input[type=password]"
     ).value;
-
-    fetch(`http://localhost:3000/api/v1/instructor/signup`, {
+    fetch(` http://localhost:3000/api/v1/instructors/signup`, {
       method: "POST",
       body: JSON.stringify({
         email,
@@ -65,7 +64,7 @@ function SignUp() {
         response.json().then((signup) => {
           if (signup) {
             console.log(signup);
-            navigate("/dashboard");
+            navigate("/authentication/sign-in");
           }
         });
       })
