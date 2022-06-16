@@ -1,4 +1,4 @@
-# Admin Dashboard
+# Instructor Dashboard
 
 [Here's the API Repo this todo react app uses](https://github.com/testsSystem/testapiV1)
 
@@ -9,6 +9,7 @@
 3. Redux
 4. Redux Thunk
 5. Material UI
+6. Context
 
 # Getting Started
 
