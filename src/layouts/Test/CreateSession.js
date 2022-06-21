@@ -30,12 +30,15 @@ function CreateSession() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/tests/getTestsByInstructor`, {
-      method: "get",
-      headers: {
-        Authorization: "Bearer " + ctx.token,
-      },
-    }).then((response) => {
+    fetch(
+      `https://logietestapi.herokuapp.com/api/v1/tests/getTestsByInstructor`,
+      {
+        method: "get",
+        headers: {
+          Authorization: "Bearer " + ctx.token,
+        },
+      }
+    ).then((response) => {
       console.log(response);
       response.json().then((titles) => {
         const allTitles = titles.result.map((title) => {

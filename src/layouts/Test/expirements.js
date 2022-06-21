@@ -47,14 +47,14 @@ const Expirement = () => {
       queryKey: ["post1", 1],
       queryFn: () =>
         axios({
-          url: `http://localhost:3000/api/v1/tests/ckeckCorrect`,
+          url: `https://logietestapi.herokuapp.com/api/v1/tests/ckeckCorrect`,
         }),
     },
     {
       queryKey: ["post2", 2],
       queryFn: () =>
         axios({
-          url: `http://localhost:3000/api/v1/tests/correctAnswers/${id}`,
+          url: `https://logietestapi.herokuapp.com/api/v1/tests/correctAnswers/${id}`,
         }),
     },
   ]);

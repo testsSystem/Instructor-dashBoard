@@ -50,7 +50,7 @@ function Signin() {
     const password = passwordRef.current.querySelector(
       "input[type=password]"
     ).value;
-    fetch(`http://localhost:3000/api/v1/instructors/login`, {
+    fetch(`https://logietestapi.herokuapp.com/api/v1/instructors/login`, {
       method: "POST",
       body: JSON.stringify({
         email,
